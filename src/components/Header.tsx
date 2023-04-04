@@ -27,7 +27,6 @@ export const Header = () => {
   return (
     <StyledHeader>
       <Container>
-        {/* <Row> */}
         <NavWrapper>
           <LogoWrapper>
             <LogoImage src={logo} alt="logo" />
@@ -57,7 +56,6 @@ export const Header = () => {
             </CartIcon>
           </NavIcons>
         </NavWrapper>
-        {/* </Row> */}
       </Container>
     </StyledHeader>
   );
@@ -78,6 +76,7 @@ const NavWrapper = styled.div`
 const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
+  gap: 8px;
 `;
 
 const Navigation = styled.div`
@@ -95,18 +94,18 @@ const Navigation = styled.div`
 `;
 
 const NavLinkStyles = css`
-  color: color: var(--primary-color);
-  text-decoration: none;
-  font-size: 14px;
-  font-weight: 700;
-  transition: color 0.2s;
+  color: var(--primary-color);
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
 
   &:hover {
-    color: red;
+    color: var(--primary-color);
+    text-decoration: none;
   }
 
   &.active {
-    color: blue;
+    font-weight: 600;
   }
 `;
 
@@ -134,7 +133,7 @@ const LogoTitle = styled.h1`
 
 const CartIcon = styled.span`
   position: relative;
-  font-size: 1.2rem !important;
+  font-size: 1.4rem !important;
 `;
 
 const Badge = styled.span`

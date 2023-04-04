@@ -12,8 +12,6 @@ import { Products } from './pages/Products';
 import { Cart } from './pages/Cart';
 
 export const GlobalStyle = createGlobalStyle`
-  @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap");
-
   :root {
     --card-bg-02: #d6e5fb;
     --card-bg-03: #ceebe9;
