@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
-import { Container, Row } from 'reactstrap';
+import { Container } from 'reactstrap';
 
 import styled, { css } from 'styled-components';
 
@@ -27,38 +27,37 @@ export const Header = () => {
   return (
     <StyledHeader>
       <Container>
-        <Row>
-          <NavWrapper>
-            <LogoWrapper>
-              <LogoImage src={logo} alt="logo" />
-              <LogoTitle>KIT test task</LogoTitle>
-            </LogoWrapper>
+        {/* <Row> */}
+        <NavWrapper>
+          <LogoWrapper>
+            <LogoImage src={logo} alt="logo" />
+            <LogoTitle>KIT GLOBAL</LogoTitle>
+          </LogoWrapper>
 
-            <Navigation onClick={menuToggle}>
-              <ul>
-                {nav__links.map((item, index) => (
-                  <li key={index}>
-                    <StyledNavLink
-                      to={item.path}
-                      className="nav__active"
-                    >
-                      {item.display}
-                    </StyledNavLink>
-                  </li>
-                ))}
-              </ul>
-            </Navigation>
+          <Navigation onClick={menuToggle}>
+            <ul>
+              {nav__links.map((item, index) => (
+                <li key={index}>
+                  <StyledNavLink
+                    to={item.path}
+                  >
+                    {item.display}
+                  </StyledNavLink>
+                </li>
+              ))}
+            </ul>
+          </Navigation>
 
-            <NavIcons>
-              <CartIcon
-                onClick={navigateToCart}
-              >
-                <i className="ri-shopping-bag-line"></i>
-                <Badge>12</Badge>
-              </CartIcon>
-            </NavIcons>
-          </NavWrapper>
-        </Row>
+          <NavIcons>
+            <CartIcon
+              onClick={navigateToCart}
+            >
+              <i className="ri-shopping-bag-line"></i>
+              <Badge>12</Badge>
+            </CartIcon>
+          </NavIcons>
+        </NavWrapper>
+        {/* </Row> */}
       </Container>
     </StyledHeader>
   );
@@ -79,7 +78,6 @@ const NavWrapper = styled.div`
 const LogoWrapper = styled.div`
   display: flex;
   align-items: center;
-  column-gap: 8px;
 `;
 
 const Navigation = styled.div`
@@ -97,18 +95,18 @@ const Navigation = styled.div`
 `;
 
 const NavLinkStyles = css`
-  color: var(--black-color);
+  color: color: var(--primary-color);
   text-decoration: none;
   font-size: 14px;
   font-weight: 700;
   transition: color 0.2s;
 
   &:hover {
-    color: var(--primary-color);
+    color: red;
   }
 
-  &.nav__active {
-    color: var(--primary-color);
+  &.active {
+    color: blue;
   }
 `;
 

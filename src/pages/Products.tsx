@@ -1,7 +1,8 @@
 import React from 'react';
+import { CommonSection } from '../components/CommonSection';
 
 export const Products: React.FC = () => {
   return (
-    <div>Products</div>
+    <CommonSection title='Products'/>
   );
 };
