@@ -88,7 +88,7 @@ export const ProductCard: React.FC<Props> = ({ item }) => {
         </ProductImg>
         <div className="p-2 product__info">
           <ProductName>
-            <Link to={'/shop/${item.id}'}>{item.productName}</Link>
+            <Link to={item.id}>{item.productName}</Link>
           </ProductName>
           <ProductCategory>{item.category}</ProductCategory>
         </div>
