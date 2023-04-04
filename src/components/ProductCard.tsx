@@ -7,6 +7,9 @@ import styled from 'styled-components';
 import { Product } from '../types/Product';
 import { toast } from 'react-toastify';
 
+import { useAppDispatch } from '../redux/hooks';
+import { addProduct } from '../redux/features/cartSlice';
+
 const ProductItem = styled.div`
 cursor: pointer;
 `;
@@ -75,8 +78,10 @@ interface Props {
 }
 
 export const ProductCard: React.FC<Props> = ({ item }) => {
+  const dispatch = useAppDispatch();
 
   const addToCart = () => {
+    dispatch(addProduct(item));
     toast.success('Product added successfully');
   };
 

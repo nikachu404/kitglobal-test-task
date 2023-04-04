@@ -1,9 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
+
+import styled, { css } from 'styled-components';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { Container } from 'reactstrap';
 
-import styled, { css } from 'styled-components';
+import { RootState } from '../redux/store';
+import { useAppSelector } from '../redux/hooks';
 
 const nav__links = [
   {
@@ -12,13 +15,11 @@ const nav__links = [
   },
 ];
 
-export const Header = () => {
-  const menuRef = useRef<HTMLDivElement | null>(null);
+export const Header: React.FC = () => {
+  const { quantity } = useAppSelector((state: RootState) => state.cart);
+
   const navigate = useNavigate();
 
-  const menuToggle = () => {
-    menuRef.current?.classList.toggle('active__menu');
-  };
 
   const navigateToCart = () => {
     navigate('/cart');
@@ -33,7 +34,7 @@ export const Header = () => {
             <LogoTitle>KIT GLOBAL</LogoTitle>
           </LogoWrapper>
 
-          <Navigation onClick={menuToggle}>
+          <Navigation>
             <ul>
               {nav__links.map((item, index) => (
                 <li key={index}>
@@ -52,7 +53,7 @@ export const Header = () => {
               onClick={navigateToCart}
             >
               <i className="ri-shopping-bag-line"></i>
-              <Badge>12</Badge>
+              <Badge>{quantity}</Badge>
             </CartIcon>
           </NavIcons>
         </NavWrapper>
@@ -134,6 +135,7 @@ const LogoTitle = styled.h1`
 const CartIcon = styled.span`
   position: relative;
   font-size: 1.4rem !important;
+  cursor: pointer;
 `;
 
 const Badge = styled.span`

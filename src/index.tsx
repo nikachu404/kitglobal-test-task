@@ -1,4 +1,5 @@
 import React from 'react';
+
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { createGlobalStyle } from 'styled-components';
@@ -10,6 +11,9 @@ import {
 } from 'react-router-dom';
 import { Products } from './pages/Products';
 import { Cart } from './pages/Cart';
+
+import { Provider } from 'react-redux';
+import { store } from './redux/store';
 
 export const GlobalStyle = createGlobalStyle`
   :root {
@@ -84,18 +88,21 @@ export const GlobalStyle = createGlobalStyle`
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
   <React.StrictMode>
-    <GlobalStyle />
-    <HashRouter>
-      <Routes>
-        <Route path="/" element={<App />}>
-          <Route index element={<Products />} />
-          <Route path="products" element={<Products />} />
-          <Route path="cart" element={<Cart />} />
-        </Route>
-      </Routes>
-    </HashRouter >
+    <Provider store={store}>
+      <GlobalStyle />
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<App />}>
+            <Route index element={<Products />} />
+            <Route path="products" element={<Products />} />
+            <Route path="cart" element={<Cart />} />
+          </Route>
+        </Routes>
+      </HashRouter >
+    </Provider>
   </React.StrictMode>
 );
 

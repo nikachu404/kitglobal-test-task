@@ -14,7 +14,7 @@ const App: React.FC = () => {
     <AppWrapper>
       <ToastContainer
         theme="light"
-        position="top-right"
+        position="bottom-right"
         autoClose={3000}
         closeOnClick
         pauseOnHover={false}
