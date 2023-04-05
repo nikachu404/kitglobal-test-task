@@ -18,6 +18,7 @@ import { store } from './redux/store';
 export const GlobalStyle = createGlobalStyle`
   :root {
     --primary-color: #0a1d37;
+    --heading-fontSize: 2rem;
   }
 
   * {
