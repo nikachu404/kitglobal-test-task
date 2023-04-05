@@ -3,7 +3,6 @@ import React from 'react';
 import { CommonSection } from '../components/CommonSection';
 import { Col, Row, Container } from 'reactstrap';
 import { motion } from 'framer-motion';
-// import { Product } from '../types/Product';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
 import { removeAllProducts, addProduct, removeProduct, ProductWithQuantity } from '../redux/features/cartSlice';
@@ -15,7 +14,6 @@ const Table = styled.table`
   th, td {
     color: var(--primary-color);
     text-align: left;
-    padding: 8px;
   }
   tr:nth-child(even) {
     background-color: #f2f2f2;

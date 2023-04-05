@@ -8,7 +8,7 @@ import { Product } from '../types/Product';
 import { toast } from 'react-toastify';
 
 import { useAppDispatch } from '../redux/hooks';
-import { addProduct } from '../redux/features/cartSlice';
+import { ProductWithQuantity, addProduct } from '../redux/features/cartSlice';
 
 const ProductItem = styled.div`
 cursor: pointer;
@@ -80,14 +80,23 @@ interface Props {
 export const ProductCard: React.FC<Props> = ({ item }) => {
   const dispatch = useAppDispatch();
 
+  // додати продукт до корзини
   const addToCart = () => {
     dispatch(addProduct(item));
-    toast.success('Product added successfully');
+    toast.success('Product added successfully'); //вспливаюча модалка про доданий товар
+  };
+
+  // зберегти дані продукту при його перетягуванні
+  const handleDragStart = (event: React.DragEvent<HTMLDivElement>, product: Product | ProductWithQuantity) => {
+    event.dataTransfer.setData('application/json', JSON.stringify(product));
   };
 
   return (
     <Col lg="3" md="4" className="mb-2">
-      <ProductItem>
+      <ProductItem
+        draggable
+        onDragStart={(event) => handleDragStart(event, item)}
+      >
         <ProductImg>
           <motion.img whileHover={{ scale: 0.9 }} src={item.imgUrl} alt="" />
         </ProductImg>

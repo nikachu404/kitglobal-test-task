@@ -4,9 +4,11 @@ import styled, { css } from 'styled-components';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { Container } from 'reactstrap';
+import { toast } from 'react-toastify';
 
 import { RootState } from '../redux/store';
-import { useAppSelector } from '../redux/hooks';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
+import { addProduct } from '../redux/features/cartSlice';
 
 const nav__links = [
   {
@@ -17,12 +19,25 @@ const nav__links = [
 
 export const Header: React.FC = () => {
   const { quantity } = useAppSelector((state: RootState) => state.cart);
+  const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
 
 
   const navigateToCart = () => {
     navigate('/cart');
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  // Додати продукт до корзини при відпусканні перетягуваного продукту
+  //в потрібному місці
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    const product = JSON.parse(event.dataTransfer.getData('application/json'));
+    dispatch(addProduct(product));
+    toast.success('Product added successfully'); //вспливаюча модалка про доданий товар
   };
 
   return (
@@ -51,6 +66,8 @@ export const Header: React.FC = () => {
           <NavIcons>
             <CartIcon
               onClick={navigateToCart}
+              onDragOver={handleDragOver} // // Дозволити кидання в зоні
+              onDrop={handleDrop} // додати продукт до корзини при відпусканні
             >
               <i className="ri-shopping-bag-line"></i>
               <Badge>{quantity}</Badge>
