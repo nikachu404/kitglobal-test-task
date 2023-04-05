@@ -1,22 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 
 import { CommonSection } from '../components/CommonSection';
 import { Container, Row } from 'reactstrap';
 import { ProductList } from '../components/ProductList';
-// import products from '../assets/data/products';
-// import { fetchProducts } from '../api/fetch';
-import { Product } from '../types/Product';
+
+import { fetchProductsStart } from '../redux/features/productsSlice';
+import { useAppSelector, useAppDispatch } from '../redux/hooks';
 
 export const Products: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([]);
-
-  console.log(products);
+  const { products } = useAppSelector(state => state.products);
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    fetch('https://api.jsonbin.io/v3/b/642d7741ebd26539d0a50878')
-      .then(data => data.json())
-      .then(products => setProducts(products.record))
-      .catch(error => error);
+    dispatch(fetchProductsStart());
   }, []);
 
   return (
@@ -25,7 +21,7 @@ export const Products: React.FC = () => {
 
       <Container>
         <Row>
-          <ProductList products={products} />
+          {products && <ProductList products={products} />}
         </Row>
       </Container>
     </>
