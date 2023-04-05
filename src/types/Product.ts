@@ -10,4 +10,5 @@ export interface Product {
   description: string;
   reviews: Review[];
   avgRating: number;
+  quantity?: number;
 }
