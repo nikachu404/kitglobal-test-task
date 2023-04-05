@@ -17,14 +17,7 @@ import { store } from './redux/store';
 
 export const GlobalStyle = createGlobalStyle`
   :root {
-    --card-bg-02: #d6e5fb;
-    --card-bg-03: #ceebe9;
-    --card-bg-04: #e2f2b2;
     --primary-color: #0a1d37;
-    --hero-bg: #d6e5fb;
-    --heading-fontSize: 2rem;
-    --small-text-color: #999;
-    --heading-text-color: #0a1d37;
   }
 
   * {

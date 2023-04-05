@@ -13,8 +13,13 @@ const Table = styled.table`
   width: 100%;
   th, td {
     color: var(--primary-color);
-    text-align: left;
+    text-align: center;
+
+    @media only screen and (max-width: 400px) { 
+      font-size: 0.8rem; 
+    }
   }
+
   tr:nth-child(even) {
     background-color: #f2f2f2;
   }
@@ -50,9 +55,14 @@ const Subtotal = styled.h6`
   justify-content: space-between;
   font-size: 1rem;
   margin-bottom: 0;
+
   span {
     font-size: 1.5rem;
     font-weight: bold;
+  }
+
+  @media (max-width: 992px) {
+      margin-top: 10px;
   }
 `;
 

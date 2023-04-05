@@ -10,10 +10,6 @@ import { toast } from 'react-toastify';
 import { useAppDispatch } from '../redux/hooks';
 import { ProductWithQuantity, addProduct } from '../redux/features/cartSlice';
 
-const ProductItem = styled.div`
-cursor: pointer;
-`;
-
 const ProductImg = styled.div`
   img { 
     &:hover { 
@@ -40,7 +36,7 @@ const ProductName = styled.h3`
 
   @media only screen and(max-width: 768px) { 
   font-size: 1rem; 
-  };
+  }
 `;
 
 const ProductCategory = styled.span`
@@ -73,6 +69,14 @@ const AddToCart = styled.span`
   };
 `;
 
+const StyledCol = styled(Col)`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+  background-color: white;
+`;
+
 interface Props {
   item: Product
 }
@@ -92,14 +96,16 @@ export const ProductCard: React.FC<Props> = ({ item }) => {
   };
 
   return (
-    <Col lg="3" md="4" className="mb-2">
-      <ProductItem
-        draggable
-        onDragStart={(event) => handleDragStart(event, item)}
-      >
-        <ProductImg>
-          <motion.img whileHover={{ scale: 0.9 }} src={item.imgUrl} alt="" />
-        </ProductImg>
+    <StyledCol
+      lg="3"
+      md="4"
+      className="mb-2"
+      draggable
+      onDragStart={(event: React.DragEvent<HTMLDivElement>) => handleDragStart(event, item)}>
+      <ProductImg>
+        <motion.img whileHover={{ scale: 0.9 }} src={item.imgUrl} alt="" />
+      </ProductImg>
+      <div>
         <div className="p-2 product__info">
           <ProductName>
             <Link to={item.id}>{item.productName}</Link>
@@ -112,7 +118,7 @@ export const ProductCard: React.FC<Props> = ({ item }) => {
             <i className="ri-add-line"></i>
           </AddToCart>
         </ProductCardBottom>
-      </ProductItem>
-    </Col >
+      </div>
+    </StyledCol >
   );
 };
