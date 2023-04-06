@@ -2,13 +2,13 @@ import React from 'react';
 
 import { motion } from 'framer-motion';
 import { Col } from 'reactstrap';
-import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Product } from '../types/Product';
+import { ProductWithQuantity } from '../types/ProductWithQuantity';
 import { toast } from 'react-toastify';
 
 import { useAppDispatch } from '../redux/hooks';
-import { ProductWithQuantity, addProduct } from '../redux/features/cartSlice';
+import { addProduct } from '../redux/features/cartSlice';
 
 const ProductImg = styled.div`
   img { 
@@ -57,16 +57,12 @@ const ProductPrice = styled.span`
   font-weight: 500;
 `;
 
-const AddToCart = styled.span`
+const AddToCart = styled(motion.span)`
  font-size: 1.2rem; 
  padding: 5px; 
  background: var(--primary-color); 
  color: #fff; 
  border-radius: 50px;
- 
- &:active { 
-  transform: scale(1.2); 
-  };
 `;
 
 const StyledCol = styled(Col)`
@@ -106,19 +102,18 @@ export const ProductCard: React.FC<Props> = ({ item }) => {
         <motion.img whileHover={{ scale: 0.9 }} src={item.imgUrl} alt="" />
       </ProductImg>
       <div>
-        <div className="p-2 product__info">
-          <ProductName>
-            <Link to={item.id}>{item.productName}</Link>
-          </ProductName>
-          <ProductCategory>{item.category}</ProductCategory>
-        </div>
-        <ProductCardBottom>
-          <ProductPrice>${item.price}</ProductPrice>
-          <AddToCart onClick={addToCart}>
-            <i className="ri-add-line"></i>
-          </AddToCart>
-        </ProductCardBottom>
+        <ProductName>
+          {item.productName}
+        </ProductName>
+        <ProductCategory>{item.category}</ProductCategory>
       </div>
+      <ProductCardBottom>
+        <ProductPrice>${item.price}</ProductPrice>
+        <AddToCart whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }} onClick={addToCart}>
+          <i className="ri-add-line" />
+        </AddToCart>
+      </ProductCardBottom>
+
     </StyledCol >
   );
 };

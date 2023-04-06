@@ -1,16 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Product } from '../../types/Product';
+import { ProductWithQuantity } from '../../types/ProductWithQuantity';
 
 interface CartState {
   products: ProductWithQuantity[];
   quantity: number;
   total: number;
 }
-
-export interface ProductWithQuantity extends Product {
-  quantity: number;
-}
-
 
 const cartSlice = createSlice({
   name: 'cart',
@@ -70,9 +66,14 @@ const cartSlice = createSlice({
       if (index !== -1) {
         const item = state.products[index];
         const quantityToRemove = item.quantity;
+        //видалити екземпляри продуту
         state.products.splice(index, 1);
+
+        // оновити суму та кількість
         state.quantity -= quantityToRemove;
         state.total -= quantityToRemove * price;
+
+        // оновити локальне сховище
         localStorage.setItem('products', JSON.stringify(state.products));
         localStorage.setItem('quantity', JSON.stringify(state.quantity));
         localStorage.setItem('total', JSON.stringify(state.total));
@@ -87,16 +88,18 @@ const cartSlice = createSlice({
       );
       if (product) {
         const priceDiff = (action.payload.quantity - product.quantity) * product.price;
+
+        // оновити суму, кількість та кількість екземплярів одного продукту
         product.quantity = action.payload.quantity;
         state.total += priceDiff;
         state.quantity = state.products.reduce((acc, productItem) => acc + productItem.quantity, 0);
       }
     
+      // оновити локальне сховище
       localStorage.setItem('products', JSON.stringify(state.products));
       localStorage.setItem('quantity', JSON.stringify(state.quantity));
       localStorage.setItem('total', JSON.stringify(state.total));
     },
-    
   },
 });
 

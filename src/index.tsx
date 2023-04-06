@@ -27,6 +27,10 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
   }
 
+  #shadow-host-companion {
+    display: none;
+  }
+
   body {
     font-family: "Montserrat", sans-serif;
   }
@@ -99,4 +103,3 @@ root.render(
     </Provider>
   </React.StrictMode>
 );
-

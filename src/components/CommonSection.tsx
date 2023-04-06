@@ -1,11 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled from 'styled-components'; 
 import { Container } from 'reactstrap';
 import image from '../assets/images/common-section-bg.jpg';
-
-interface Props {
-  title: string;
-}
 
 const CommonSectionWrapper = styled.section`
   background: linear-gradient(rgba(0, 0, 0, 0.562), rgba(0, 0, 0, 0.562)),
@@ -29,6 +25,10 @@ const CommonSectionWrapper = styled.section`
     }
   }
 `;
+
+interface Props {
+  title: string;
+}
 
 export const CommonSection: React.FC<Props> = ({ title }) => {
   return (

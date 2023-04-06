@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 import { CommonSection } from '../components/CommonSection';
 import { Col, Row, Container, Input } from 'reactstrap';
-import { motion } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
-import { removeAllProducts, addProduct, removeProduct, ProductWithQuantity, setQuantity } from '../redux/features/cartSlice';
+import { removeAllProducts, addProduct, removeProduct, setQuantity } from '../redux/features/cartSlice';
 import styled from 'styled-components';
+import { ProductWithQuantity } from '../types/ProductWithQuantity';
 
 const Table = styled.table`
   border-collapse: collapse;
@@ -31,7 +31,7 @@ const Image = styled.img`
   object-fit: contain;
 `;
 
-const DeleteButton = styled(motion.i)`
+const DeleteButton = styled.i`
   font-size: 1.5rem;
   cursor: pointer;
 
@@ -50,6 +50,7 @@ const EmptyCartTitle = styled.h2`
 `;
 
 const CartWrapper = styled(Container)`
+  height: 100%;
   margin-top: 20px;
 `;
 
@@ -200,7 +201,6 @@ export const Cart: React.FC = () => {
                       </td>
                       <td>
                         <DeleteButton
-                          whileTap={{ scale: 1.2 }}
                           onClick={() => deleteAllProducts(item)}
                           className="ri-delete-bin-line"
                         />
@@ -223,4 +223,3 @@ export const Cart: React.FC = () => {
     </>
   );
 };
-

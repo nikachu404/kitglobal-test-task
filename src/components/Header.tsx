@@ -4,80 +4,11 @@ import styled, { css } from 'styled-components';
 import { NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/images/logo.png';
 import { Container } from 'reactstrap';
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'; // бібліотека зі вспливаючими модалками
 
 import { RootState } from '../redux/store';
 import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { addProduct } from '../redux/features/cartSlice';
-
-const nav__links = [
-  {
-    path: 'products',
-    display: 'Products',
-  },
-];
-
-export const Header: React.FC = () => {
-  const { quantity } = useAppSelector((state: RootState) => state.cart);
-  const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
-
-
-  const navigateToCart = () => {
-    navigate('/cart');
-  };
-
-  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
-    event.preventDefault();
-  };
-
-  // Додати продукт до корзини при відпусканні перетягуваного продукту
-  //в потрібному місці
-  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
-    const product = JSON.parse(event.dataTransfer.getData('application/json'));
-    dispatch(addProduct(product));
-    toast.success('Product added successfully'); //вспливаюча модалка про доданий товар
-  };
-
-  return (
-    <StyledHeader>
-      <Container>
-        <NavWrapper>
-          <LogoWrapper>
-            <LogoImage src={logo} alt="logo" />
-            <LogoTitle>KIT GLOBAL</LogoTitle>
-          </LogoWrapper>
-
-          <Navigation>
-            <ul>
-              {nav__links.map((item, index) => (
-                <li key={index}>
-                  <StyledNavLink
-                    to={item.path}
-                  >
-                    {item.display}
-                  </StyledNavLink>
-                </li>
-              ))}
-            </ul>
-          </Navigation>
-
-          <NavIcons>
-            <CartIcon
-              onClick={navigateToCart}
-              onDragOver={handleDragOver} // // Дозволити кидання в зоні
-              onDrop={handleDrop} // додати продукт до корзини при відпусканні
-            >
-              <i className="ri-shopping-bag-line"></i>
-              <Badge>{quantity}</Badge>
-            </CartIcon>
-          </NavIcons>
-        </NavWrapper>
-      </Container>
-    </StyledHeader>
-  );
-};
 
 const StyledHeader = styled.header`
   width: 100%;
@@ -172,3 +103,72 @@ const Badge = styled.span`
   font-weight: 600;
   z-index: 10;
 `;
+
+const nav__links = [
+  {
+    path: 'products',
+    display: 'Products',
+  },
+];
+
+export const Header: React.FC = () => {
+  const { quantity } = useAppSelector((state: RootState) => state.cart);
+  const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+
+
+  const navigateToCart = () => {
+    navigate('/cart');
+  };
+
+  const handleDragOver = (event: React.DragEvent<HTMLDivElement>) => {
+    event.preventDefault();
+  };
+
+  // Додати продукт до корзини при відпусканні перетягуваного продукту
+  //в потрібному місці
+  const handleDrop = (event: React.DragEvent<HTMLDivElement>) => {
+    const product = JSON.parse(event.dataTransfer.getData('application/json'));
+    dispatch(addProduct(product));
+    toast.success('Product added successfully'); //вспливаюча модалка про доданий товар
+  };
+
+  return (
+    <StyledHeader>
+      <Container>
+        <NavWrapper>
+          <LogoWrapper>
+            <LogoImage src={logo} alt="logo" />
+            <LogoTitle>Test task</LogoTitle>
+          </LogoWrapper>
+
+          <Navigation>
+            <ul>
+              {nav__links.map((item, index) => (
+                <li key={index}>
+                  <StyledNavLink
+                    to={item.path}
+                  >
+                    {item.display}
+                  </StyledNavLink>
+                </li>
+              ))}
+            </ul>
+          </Navigation>
+
+          <NavIcons>
+            <CartIcon
+              onClick={navigateToCart}
+              onDragOver={handleDragOver} // // Дозволити кидання в зоні
+              onDrop={handleDrop} // додати продукт до корзини при відпусканні
+            >
+              <i className="ri-shopping-bag-line"></i>
+              <Badge>{quantity}</Badge>
+            </CartIcon>
+          </NavIcons>
+        </NavWrapper>
+      </Container>
+    </StyledHeader>
+  );
+};
