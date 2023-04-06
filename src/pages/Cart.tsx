@@ -190,6 +190,12 @@ export const Cart: React.FC = () => {
                             const newQuantities = { ...productsQuantity, [item.id]: value };
                             setProductsQuantity(newQuantities);
                           }}
+                          onKeyPress={(event: React.KeyboardEvent<HTMLTextAreaElement | HTMLInputElement>) => {
+                            if (event.key === 'Enter') {
+                              event.preventDefault();
+                              event.currentTarget.blur();
+                            }
+                          }}
                         />
 
                         <ReducersWrapper>
