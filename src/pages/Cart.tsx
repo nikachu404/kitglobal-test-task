@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 
 import { CommonSection } from '../components/CommonSection';
-import { Col, Row, Container } from 'reactstrap';
+import { Col, Row, Container, Input } from 'reactstrap';
 import { motion } from 'framer-motion';
 import { useAppDispatch, useAppSelector } from '../redux/hooks';
 import { RootState } from '../redux/store';
-import { removeAllProducts, addProduct, removeProduct, ProductWithQuantity } from '../redux/features/cartSlice';
+import { removeAllProducts, addProduct, removeProduct, ProductWithQuantity, setQuantity } from '../redux/features/cartSlice';
 import styled from 'styled-components';
 
 const Table = styled.table`
@@ -16,7 +16,7 @@ const Table = styled.table`
     text-align: center;
 
     @media only screen and (max-width: 400px) { 
-      font-size: 0.8rem; 
+      font-size: 0.6rem; 
     }
   }
 
@@ -34,6 +34,10 @@ const Image = styled.img`
 const DeleteButton = styled(motion.i)`
   font-size: 1.5rem;
   cursor: pointer;
+
+  @media only screen and (max-width: 400px) { 
+    font-size: 1rem; 
+  }
 `;
 
 const CartTitle = styled(CommonSection)`
@@ -69,26 +73,67 @@ const Subtotal = styled.h6`
 const ReducersWrapper = styled.span`
   font-size: 1.2rem;
   margin: 0 5px;
+
+  @media only screen and (max-width: 400px) { 
+    font-size: 1rem; 
+  }
 `;
 
-const StyledTd = styled.td`
+const StyledInput = styled(Input)`
+    display: inline;
+    text-align: center;
+    width: 25%;
+    padding: 1px;
 `;
 
 export const Cart: React.FC = () => {
   const { products, total } = useAppSelector((state: RootState) => state.cart);
   const dispatch = useAppDispatch();
+  const [productsQuantity, setProductsQuantity] = useState<{ [key: string]: number }>({});
 
-  const deleteAllProducts = (itemToRemove: ProductWithQuantity) => {
-    dispatch(removeAllProducts(itemToRemove));
+  const handleQuantityChange = (itemId: string, value: number) => {
+    const newQuantities = { ...productsQuantity, [itemId]: value };
+    setProductsQuantity(newQuantities);
+    dispatch(setQuantity({ id: itemId, quantity: value }));
+  };
+
+  const addProductUnit = (itemToAdd: ProductWithQuantity) => {
+    const newQuantities = { ...productsQuantity, [itemToAdd.id]: (productsQuantity[itemToAdd.id] || 0) + 1 };
+    setProductsQuantity(newQuantities);
+    dispatch(
+      addProduct({
+        ...itemToAdd,
+        quantity: newQuantities[itemToAdd.id] || 0,
+      })
+    );
   };
 
   const deleteProduct = (itemToRemove: ProductWithQuantity) => {
-    dispatch(removeProduct(itemToRemove));
+    const newQuantities = { ...productsQuantity };
+    delete newQuantities[itemToRemove.id];
+    setProductsQuantity(newQuantities);
+    dispatch(
+      removeProduct({
+        ...itemToRemove,
+        quantity: itemToRemove.quantity,
+      })
+    );
   };
 
-  const addProductUnit = (itemToRemove: ProductWithQuantity) => {
-    dispatch(addProduct(itemToRemove));
+  const deleteAllProducts = (itemToRemove: ProductWithQuantity) => {
+    const newQuantities = { ...productsQuantity };
+    delete newQuantities[itemToRemove.id];
+    setProductsQuantity(newQuantities);
+    dispatch(removeAllProducts(itemToRemove));
   };
+
+  useEffect(() => {
+    const quantities: { [key: string]: number } = {};
+    products.forEach((item) => {
+      quantities[item.id] = item.quantity;
+    });
+    setProductsQuantity(quantities);
+  }, [products]);
 
   return (
     <>
@@ -109,6 +154,7 @@ export const Cart: React.FC = () => {
                     <th>Delete</th>
                   </tr>
                 </thead>
+
                 <tbody>
                   {products.map((item) => (
                     <tr key={item.id}>
@@ -117,15 +163,41 @@ export const Cart: React.FC = () => {
                       </td>
                       <td>{item.productName}</td>
                       <td>{`${item.price}`}</td>
-                      <StyledTd>
+                      <td>
                         <ReducersWrapper>
-                          <i className="ri-indeterminate-circle-line" onClick={() => deleteProduct(item)} />
+                          <i
+                            className="ri-indeterminate-circle-line"
+                            onClick={() => deleteProduct(item)}
+                          />
                         </ReducersWrapper>
-                        {item.quantity}
+
+                        <StyledInput
+                          value={productsQuantity[item.id] || ''}
+                          onBlur={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            const value = parseInt(event.target.value);
+                            if (!isNaN(value) && value >= 0) {
+                              handleQuantityChange(item.id, value);
+                            } else {
+                              setProductsQuantity({
+                                ...productsQuantity,
+                                [item.id]: item.quantity,
+                              });
+                            }
+                          }}
+                          onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                            const value = parseInt(event.target.value);
+                            const newQuantities = { ...productsQuantity, [item.id]: value };
+                            setProductsQuantity(newQuantities);
+                          }}
+                        />
+
                         <ReducersWrapper>
-                          <i className="ri-add-circle-line" onClick={() => addProductUnit(item)} />
+                          <i
+                            className="ri-add-circle-line"
+                            onClick={() => addProductUnit(item)}
+                          />
                         </ReducersWrapper>
-                      </StyledTd>
+                      </td>
                       <td>
                         <DeleteButton
                           whileTap={{ scale: 1.2 }}
