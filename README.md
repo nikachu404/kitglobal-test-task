@@ -1,6 +1,6 @@
 <h1 align="center">💻KIT GLOBAL test task💻</h1>
 
- - [✨ДЕМО✨](https://nikachu404.github.io/sheep-fish-test-task/)
+ - [✨ДЕМО✨](https://nikachu404.github.io/kitglobal-test-task/)
 ___
 
 <h2>🔮Використані технології🔮</h2>
