@@ -11,9 +11,13 @@ import { useAppSelector, useAppDispatch } from '../redux/hooks';
 import { addProduct } from '../redux/features/cartSlice';
 
 const StyledHeader = styled.header`
+  position: sticky;
+  top: 0;
   width: 100%;
   height: 70px;
   line-height: 70px;
+  background-color: white;
+  z-index: 100;
 `;
 
 const NavWrapper = styled.div`
