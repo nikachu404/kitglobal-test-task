@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/kitglobal-test-task/static/css/main.ec4b3d24.css",
-    "main.js": "/kitglobal-test-task/static/js/main.29772d70.js",
+    "main.js": "/kitglobal-test-task/static/js/main.9d79c1dd.js",
     "static/media/remixicon.svg?t=1680339538483": "/kitglobal-test-task/static/media/remixicon.8ed17be9a84821a5c229.svg",
     "static/media/remixicon.eot?t=1680339538483": "/kitglobal-test-task/static/media/remixicon.12918279f6bf4d026004.eot",
     "static/media/remixicon.ttf?t=1680339538483": "/kitglobal-test-task/static/media/remixicon.1cb5749eb3139d87d99f.ttf",
@@ -10,10 +10,10 @@
     "static/media/remixicon.woff2?t=1680339538483": "/kitglobal-test-task/static/media/remixicon.9351de0b3af8bf7095ea.woff2",
     "index.html": "/kitglobal-test-task/index.html",
     "main.ec4b3d24.css.map": "/kitglobal-test-task/static/css/main.ec4b3d24.css.map",
-    "main.29772d70.js.map": "/kitglobal-test-task/static/js/main.29772d70.js.map"
+    "main.9d79c1dd.js.map": "/kitglobal-test-task/static/js/main.9d79c1dd.js.map"
   },
   "entrypoints": [
     "static/css/main.ec4b3d24.css",
-    "static/js/main.29772d70.js"
+    "static/js/main.9d79c1dd.js"
   ]
 }
