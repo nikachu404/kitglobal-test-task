@@ -144,7 +144,7 @@ export const Header: React.FC = () => {
         <NavWrapper>
           <LogoWrapper>
             <LogoImage src={logo} alt="logo" />
-            <LogoTitle>Test task</LogoTitle>
+            <LogoTitle>Store</LogoTitle>
           </LogoWrapper>
 
           <Navigation>

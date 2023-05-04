@@ -1,4 +1,4 @@
-<h1 align="center">💻KIT GLOBAL test task💻</h1>
+<h1 align="center">💻Online store💻</h1>
 
  - [✨ДЕМО✨](https://nikachu404.github.io/kitglobal-test-task/)
 ___

@@ -1,6 +1,6 @@
 {
-  "name": "kitglobal-test-task",
-  "homepage": "https://nikachu404.github.io/kitglobal-test-task",
+  "name": "store",
+  "homepage": "https://nikachu404.github.io/store",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
