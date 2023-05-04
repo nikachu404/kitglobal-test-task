@@ -1,6 +1,6 @@
 <h1 align="center">💻Online store💻</h1>
 
- - [✨ДЕМО✨](https://nikachu404.github.io/kitglobal-test-task/)
+ - [✨ДЕМО✨](https://nikachu404.github.io/store/)
 ___
 
  <h2>📋Основне📋</h2>
